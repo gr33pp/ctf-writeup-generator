@@ -1,4 +1,5 @@
 # /usr/bin/python3
+import os
 from pick import pick
 def boldcolos(text):
     bold_start = '\033[1;36m'
@@ -25,8 +26,12 @@ answers['Flag'] = info("[*] " + boldcolos("The flag"))
 ctfn = f"{answers['Name']}"
 chn = f"{answers['Chall']}"
 filename = ctfn.replace(" ", "_")+ '_' + chn.replace(" ", "_")+ ".md"
+folder = "Writeup"
+path = os.path.join(folder, filename)
+if not os.path.exists(folder):
+    os.makedirs(folder)
 
-with open(filename, 'w') as file:
+with open(path, 'w') as file:
     file.write(f"## {answers['Name']}: {answers['Chall']} \n")
     file.write(f"#### Category: {option}\n#### Score: {answers['Points']}\n#### Number of Solves: {answers['Solves']} ")
     if (answers['Blood'] == 'y') or (answers['Blood'] =='Y'):
@@ -57,4 +62,4 @@ with open(filename, 'w') as file:
 """
     file.write(constant2)
 
-print("\n[+] The write-up file " + boldcolos(filename) + " was generated!")
+print("\n[+] The write-up file " + boldcolos("./Writeup/" + filename) + " was generated!")
